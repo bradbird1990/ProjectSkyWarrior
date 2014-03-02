@@ -29,12 +29,12 @@ public class GameScreen implements Screen {
 		 * Setup the game world
 		 */
 		gameWorld = new GameWorld();
-		gameRenderer = new GameRenderer(gameWorld);
+		gameRenderer = new GameRenderer(gameWorld, (int) gameHeight);
 		
 		/*
 		 * Assign the game world to the input handler
 		 */
-		Gdx.input.setInputProcessor(new InputHandler(world));
+		Gdx.input.setInputProcessor(new InputHandler(gameWorld));
 		
 	}
 	
