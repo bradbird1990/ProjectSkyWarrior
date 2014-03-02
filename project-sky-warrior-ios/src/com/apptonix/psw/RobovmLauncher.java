@@ -3,6 +3,7 @@ package com.apptonix.psw;
 import org.robovm.cocoatouch.foundation.NSAutoreleasePool;
 import org.robovm.cocoatouch.uikit.UIApplication;
 
+import com.apptonix.ProjectSkyWarrior.ProjectSkyWarrior;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
 

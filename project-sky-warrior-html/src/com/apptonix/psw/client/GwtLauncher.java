@@ -1,6 +1,6 @@
 package com.apptonix.psw.client;
 
-import com.apptonix.psw.ProjectSkyWarrior;
+import com.apptonix.ProjectSkyWarrior.ProjectSkyWarrior;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;

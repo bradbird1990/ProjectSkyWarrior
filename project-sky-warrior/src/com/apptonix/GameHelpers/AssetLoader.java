@@ -26,7 +26,8 @@ public class AssetLoader {
 		backgroundsRaw = new Texture(Gdx.files.internal("data/backgrounds/desert.png"));
 		backgroundsRaw.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
-		backgroundDesert = new TextureRegion(backgroundsRaw, 0, 0, 1024, 512);
+		backgroundDesert = new TextureRegion(backgroundsRaw, 0, 0, 1280, 720);
+		backgroundDesert.flip(false, true);
 		
 		/*
 		 * Load the game object sprites

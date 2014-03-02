@@ -22,14 +22,14 @@ public class GameScreen implements Screen {
 		float screenWidth = Gdx.graphics.getWidth();
 		float screenHeight = Gdx.graphics.getHeight();
 		
-		float gameWidth = 136;
+		float gameWidth = 1280;
 		float gameHeight = screenHeight / (screenWidth / gameWidth);
 		
 		/*
 		 * Setup the game world
 		 */
 		gameWorld = new GameWorld();
-		gameRenderer = new GameRenderer(gameWorld, (int) gameHeight);
+		gameRenderer = new GameRenderer(gameWorld, (int) gameHeight, (int) gameWidth);
 		
 		/*
 		 * Assign the game world to the input handler
