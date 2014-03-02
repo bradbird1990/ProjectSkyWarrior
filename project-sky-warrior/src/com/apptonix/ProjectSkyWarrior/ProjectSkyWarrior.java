@@ -1,4 +1,4 @@
-package com.apptonix.psw;
+package com.apptonix.ProjectSkyWarrior;
 
 import com.apptonix.GameHelpers.AssetLoader;
 import com.apptonix.GameScreens.GameScreen;
