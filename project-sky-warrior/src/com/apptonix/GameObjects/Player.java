@@ -18,6 +18,16 @@ public class Player {
 	private int playerHealth = 100;
 	private int playerState = 1;
 	
+	// TODO Temporary
+	// Start Cool animation fields
+	private float topPos = 50;
+	private float bottomPos = 100;
+	
+	private boolean isGoingDown = true;
+	
+	private int dipSpeed = 1;
+	// End cool animation fields
+	
 	public Player(float x, float y, int width, int height) {
 		
 		this.width = width;
@@ -35,6 +45,22 @@ public class Player {
 		
 		// Set the hit box over the player
 		hitBox.set(position.x, position.y, width, height);
+		
+		// TODO Temporary
+		if (isGoingDown) {
+			position.x += dipSpeed;
+			
+			if (position.x >= bottomPos) {
+				isGoingDown = false;
+			}
+		}
+		else {
+			position.x -= dipSpeed;
+			
+			if (position.x <= topPos) {
+				isGoingDown = true;
+			}
+		}
 		
 	}
 	
