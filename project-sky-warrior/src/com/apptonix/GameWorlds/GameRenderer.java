@@ -1,6 +1,9 @@
 package com.apptonix.GameWorlds;
 
 import com.apptonix.GameHelpers.AssetLoader;
+import com.apptonix.GameObjects.Background;
+import com.apptonix.GameObjects.Player;
+import com.apptonix.GameObjects.ScrollHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,7 +19,15 @@ public class GameRenderer {
 		gameHeight,
 		gameWidth;
 	
+	private ScrollHandler scrollHandler;
+	
+	private Player player;
+	
 	private SpriteBatch spriteBatcher;
+	
+	private Background
+		background,
+		background2;
 	
 	private TextureRegion
 		backgroundDesert,
@@ -24,12 +35,12 @@ public class GameRenderer {
 	
 	private boolean debugMode = false;
 	
-	public GameRenderer(GameWorld pWorld, int gameHeight, int gameWidth) {
+	public GameRenderer(GameWorld pWorld, int pGameHeight, int pGameWidth) {
 		
 		world = pWorld;
 		
-		this.gameHeight = gameHeight;
-		this.gameWidth = gameWidth;
+		gameHeight = pGameHeight;
+		gameWidth = pGameWidth;
 		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(true, 1280, 720); // TODO This needs changing
@@ -49,7 +60,14 @@ public class GameRenderer {
 		
 		spriteBatcher.begin();
 		
-		spriteBatcher.draw(backgroundDesert, 0, 0, this.gameWidth, this.gameHeight);
+		spriteBatcher.disableBlending();
+		
+		spriteBatcher.draw(backgroundDesert, background.getX(), background.getY(), background.getWidth(), background.getHeight());
+		spriteBatcher.draw(backgroundDesert, background2.getX(), background2.getY(), background2.getWidth(), background2.getHeight());
+		
+		spriteBatcher.enableBlending();
+		
+		spriteBatcher.draw(planeRed, player.getX(), player.getY(), player.getWidth(), player.getHeight());
 		
 		spriteBatcher.end();
 		
@@ -60,7 +78,12 @@ public class GameRenderer {
 	 */
 	private void initGameObjects() {
 		
+		player = world.getPlayer();
 		
+		scrollHandler = world.getScrollHandler();
+		
+		background = scrollHandler.getBackground();
+		background2 = scrollHandler.getBackground2();
 		
 	}
 	
