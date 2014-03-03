@@ -36,6 +36,7 @@ public class AssetLoader {
 		planesRaw.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
 		planeRed = new TextureRegion(planesRaw, 0, 0, 95, 72);
+		planeRed.flip(false, true);
 		
 	}
 	
