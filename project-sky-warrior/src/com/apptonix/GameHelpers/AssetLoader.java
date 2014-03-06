@@ -1,6 +1,7 @@
 package com.apptonix.GameHelpers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -15,6 +16,9 @@ public class AssetLoader {
 		backgroundDesert,
 		planeRed;
 	
+	public static Music
+		introMusic;
+	
 	/*
 	 * Load in the textures from the assets folder
 	 */
@@ -23,10 +27,10 @@ public class AssetLoader {
 		/*
 		 * Load the backgrounds
 		 */
-		backgroundsRaw = new Texture(Gdx.files.internal("data/backgrounds/desert.png"));
+		backgroundsRaw = new Texture(Gdx.files.internal("data/backgrounds/backgrounds.png"));
 		backgroundsRaw.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
-		backgroundDesert = new TextureRegion(backgroundsRaw, 0, 0, 1280, 720);
+		backgroundDesert = new TextureRegion(backgroundsRaw, 0, 0, 2048, 226);
 		backgroundDesert.flip(false, true);
 		
 		/*
@@ -38,6 +42,11 @@ public class AssetLoader {
 		planeRed = new TextureRegion(planesRaw, 0, 0, 95, 72);
 		planeRed.flip(false, true);
 		
+		/*
+		 * Load the music
+		 */
+		introMusic = Gdx.audio.newMusic(Gdx.files.internal("data/music/intromusic.ogg"));
+		
 	}
 	
 	/*
@@ -47,6 +56,8 @@ public class AssetLoader {
 		
 		backgroundsRaw.dispose();
 		planesRaw.dispose();
+		
+		introMusic.dispose();
 		
 	}
 

@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class GameRenderer {
 	
@@ -19,11 +21,14 @@ public class GameRenderer {
 		gameHeight,
 		gameWidth;
 	
-	private ScrollHandler scrollHandler;
+	private ScrollHandler
+		scrollHandler;
 	
-	private Player player;
+	private Player
+		player;
 	
-	private SpriteBatch spriteBatcher;
+	private SpriteBatch
+		spriteBatcher;
 	
 	private Background
 		background,
@@ -32,6 +37,9 @@ public class GameRenderer {
 	private TextureRegion
 		backgroundDesert,
 		planeRed;
+	
+	private ShapeRenderer
+		backgroundColour;
 	
 	private boolean debugMode = false;
 	
@@ -44,6 +52,9 @@ public class GameRenderer {
 		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(true, 1280, 720); // TODO This needs changing
+		
+		backgroundColour = new ShapeRenderer();
+		backgroundColour.setProjectionMatrix(camera.combined);
 		
 		spriteBatcher = new SpriteBatch();
 		spriteBatcher.setProjectionMatrix(camera.combined);
@@ -58,14 +69,17 @@ public class GameRenderer {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		spriteBatcher.begin();
+		backgroundColour.begin(ShapeType.Filled);
 		
-		spriteBatcher.disableBlending();
+		backgroundColour.setColor(100 / 255.0f, 150 / 255.0f, 255 / 255.0f, 1);
+		backgroundColour.rect(0, 0, gameWidth, gameHeight);
+		
+		backgroundColour.end();
+		
+		spriteBatcher.begin();
 		
 		spriteBatcher.draw(backgroundDesert, background.getX(), background.getY(), background.getWidth(), background.getHeight());
 		spriteBatcher.draw(backgroundDesert, background2.getX(), background2.getY(), background2.getWidth(), background2.getHeight());
-		
-		spriteBatcher.enableBlending();
 		
 		spriteBatcher.draw(planeRed, player.getX(), player.getY(), player.getWidth(), player.getHeight());
 		
