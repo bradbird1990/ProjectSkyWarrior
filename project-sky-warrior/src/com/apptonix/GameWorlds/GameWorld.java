@@ -1,5 +1,6 @@
 package com.apptonix.GameWorlds;
 
+import com.apptonix.GameHelpers.AssetLoader;
 import com.apptonix.GameObjects.Player;
 import com.apptonix.GameObjects.ScrollHandler;
 
@@ -8,6 +9,8 @@ public class GameWorld {
 	private Player player;
 	
 	private ScrollHandler scrollHandler;
+	
+	private boolean introMusic = false;
 	
 	public GameWorld() {
 		
@@ -22,6 +25,11 @@ public class GameWorld {
 		// Add a frame limiter
 		if (delta > 0.15f) {
 			delta = 0.15f;
+		}
+		
+		if (!introMusic) {
+			AssetLoader.introMusic.play();
+			introMusic = true;
 		}
 		
 		scrollHandler.update(delta);
