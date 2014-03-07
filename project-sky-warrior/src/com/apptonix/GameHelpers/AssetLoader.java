@@ -4,19 +4,24 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 	
 	public static Texture
-		splashLogoRaw,
+		uiRaw,
 		backgroundsRaw,
 		planesRaw;
 	
 	public static TextureRegion
 		splashLogo,
+		buttonPlay1, buttonPlay2,
 		backgroundDesert,
 		planeRed;
+	
+	public static Animation
+		buttonPlayAnimation;
 	
 	public static Music
 		introMusic;
@@ -29,11 +34,24 @@ public class AssetLoader {
 		/*
 		 * Load the logos
 		 */
-		splashLogoRaw = new Texture(Gdx.files.internal("data/logos/projectskywarrior.png"));
-		splashLogoRaw.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		uiRaw = new Texture(Gdx.files.internal("data/ui/ui.png"));
+		uiRaw.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
-		splashLogo = new TextureRegion(splashLogoRaw, 0, 0, 1024, 512);
+		splashLogo = new TextureRegion(uiRaw, 0, 0, 695, 256);
 		splashLogo.flip(false, true);
+		
+		/*
+		 * Load the buttons
+		 */
+		buttonPlay1 = new TextureRegion(uiRaw, 0, 256, 150, 58);
+		buttonPlay1.flip(false, true);
+		
+		buttonPlay2 = new TextureRegion(uiRaw, 150, 256, 150, 58);
+		buttonPlay2.flip(false, true);
+		
+		TextureRegion[] buttonPlayFrames = { buttonPlay1, buttonPlay2 };
+		buttonPlayAnimation = new Animation(0.2f, buttonPlayFrames);
+		buttonPlayAnimation.setPlayMode(Animation.LOOP);
 		
 		/*
 		 * Load the backgrounds
@@ -65,7 +83,7 @@ public class AssetLoader {
 	 */
 	public static void dispose() {
 		
-		splashLogoRaw.dispose();
+		uiRaw.dispose();
 		backgroundsRaw.dispose();
 		planesRaw.dispose();
 		

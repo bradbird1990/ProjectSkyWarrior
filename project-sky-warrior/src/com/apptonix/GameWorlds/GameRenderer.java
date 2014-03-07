@@ -4,9 +4,11 @@ import com.apptonix.GameHelpers.AssetLoader;
 import com.apptonix.GameObjects.Background;
 import com.apptonix.GameObjects.Player;
 import com.apptonix.GameObjects.ScrollHandler;
+import com.apptonix.GameWorlds.GameWorld.GameState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -36,8 +38,12 @@ public class GameRenderer {
 	
 	private TextureRegion
 		splashLogo,
+		buttonPlay,
 		backgroundDesert,
 		planeRed;
+	
+	private Animation
+		buttonPlayAnimation;
 	
 	private ShapeRenderer
 		backgroundColour;
@@ -84,7 +90,11 @@ public class GameRenderer {
 		
 		spriteBatcher.draw(planeRed, player.getX(), player.getY(), player.getWidth(), player.getHeight());
 		
-		spriteBatcher.draw(splashLogo, (gameWidth / 2) - (splashLogo.getRegionWidth() / 2), -100, splashLogo.getRegionWidth(), splashLogo.getRegionHeight());
+		spriteBatcher.draw(splashLogo, (gameWidth / 2) - (splashLogo.getRegionWidth() / 2), 50, splashLogo.getRegionWidth(), splashLogo.getRegionHeight());
+		
+		if (world.getCurrentState() == GameState.SPLASH) {
+			spriteBatcher.draw(buttonPlayAnimation.getKeyFrame(runTime), (gameWidth / 2) - (buttonPlay.getRegionWidth() / 2), player.getY() - buttonPlay.getRegionHeight() - 30, buttonPlay.getRegionWidth(), buttonPlay.getRegionHeight());
+		}
 
 		spriteBatcher.end();
 		
@@ -110,6 +120,8 @@ public class GameRenderer {
 	private void initAssets() {
 		
 		splashLogo = AssetLoader.splashLogo;
+		buttonPlay = AssetLoader.buttonPlay1;
+		buttonPlayAnimation = AssetLoader.buttonPlayAnimation;
 		backgroundDesert = AssetLoader.backgroundDesert;
 		planeRed = AssetLoader.planeRed;
 		
