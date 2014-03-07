@@ -7,7 +7,6 @@ public class Player {
 
 	private Vector2 position;
 	private Vector2 velocity;
-	private Vector2 acceleration;
 	
 	private float rotation;
 	private int width;
@@ -31,11 +30,8 @@ public class Player {
 		this.width = width;
 		this.height = height;
 		
-		this.startingPos = x;
-		
 		position = new Vector2(x, y);
 		velocity = new Vector2(0, 0);
-		acceleration = new Vector2(0, 0);
 		
 		hitBox = new Rectangle();
 		
@@ -46,11 +42,16 @@ public class Player {
 		// Set the hit box over the player
 		hitBox.set(position.x, position.y, width, height);
 		
-		// TODO Temporary
+		// Change player velocitys
+		position.add(velocity.cpy().scl(delta));
+		
 		// Hover the plane if it should
 		if (shouldHover) {
 			playerHover();
 		}
+		
+	}
+	
 	// TODO Does not work
 	public void playerHover() {
 		
@@ -69,7 +70,6 @@ public class Player {
 			}
 		}
 		else {
-			position.x -= dipSpeed;
 			setVelocityY(-hoverSpeed);
 			
 			if (getY() <= hoverStartingPos - hoverVariance) {
@@ -82,17 +82,29 @@ public class Player {
 	/*
 	 * Basic setters and getters
 	 */
-	public float getY() { return position.x; }
+	public float getY() { return position.y; }
 	
 	public void setY(float y) { this.position.y  = y; }
 	
-	public float getX() { return position.y; }
+	public float getX() { return position.x; }
 	
 	public void setX(float x) { this.position.x = x; }
+	
+	public float getVelocityX() { return velocity.x; }
+	
+	public void setVelocityX(float x) { this.velocity.x = x; }
+	
+	public float getVelocityY() { return velocity.y; }
+	
+	public void setVelocityY(float y) { this.velocity.y = y; }
 	
 	public float getWidth() { return width; }
 	
 	public float getHeight() { return height; }
+	
+	public void setShouldHover(boolean b) { this.shouldHover = b; }
+	
+	public boolean getShouldHover() { return shouldHover; }
 	
 	public Rectangle getHitBox() { return hitBox; }
 	
