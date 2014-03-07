@@ -15,7 +15,16 @@ public class GameWorld {
 	
 	private ScrollHandler scrollHandler;
 	
-	private boolean introMusic = false;
+	public enum GameState {
+		SPLASH_PRE,
+		SPLASH,
+		SPLASH_POST,
+		PLAYING_PRE,
+		PLAYING,
+		GAMEOVER
+	}
+	
+	private GameState currentState;
 	
 	public GameWorld(int pGameHeight, int pGameWidth) {
 		
@@ -24,7 +33,9 @@ public class GameWorld {
 		this.gameWidth = pGameWidth;
 		this.gameHeight = pGameHeight;
 		
-		player = new Player(this.gameHeight / 2, (this.gameWidth / 2) - (playerWidth / 2), playerWidth, playerHeight);
+		player = new Player(-100, -100, playerWidth, playerHeight); // Put player out of sight for now
+		
+		currentState = GameState.SPLASH_PRE;
 		
 	}
 	
@@ -35,13 +46,52 @@ public class GameWorld {
 			delta = 0.15f;
 		}
 		
-		if (!introMusic) {
-			AssetLoader.introMusic.play();
-			introMusic = true;
+		switch (currentState) {
+			case SPLASH_PRE:
+				default:
+					updateSplashPre(delta);
+				break;
+			case SPLASH:
+				updateSplash(delta);
+				break;
+			/*case SPLASH_POST:
+				updateSplashPost(delta);
+				break;
+			case PLAYING_PRE:
+				updatePlayingPre(delta);
+				break;
+			case PLAYING:
+				updatePlaying(delta);
+				break;
+			case GAMEOVER:
+				updateGameover(delta);
+				break;*/
 		}
 		
 		scrollHandler.update(delta);
 		player.update(delta);
+		
+	}
+	
+	public void updateSplashPre(float delta) {
+		
+		if (!AssetLoader.introMusic.isPlaying()) {
+			AssetLoader.introMusic.play();
+			AssetLoader.introMusic.setLooping(true);
+		}
+		
+		player.setY(400);
+		player.setVelocityX(200);
+		
+		if (player.getX() >= (gameWidth / 2) - (player.getWidth() / 2)) {
+			currentState = GameState.SPLASH;
+		}
+		
+	}
+	
+	public void updateSplash(float delta) {
+		
+		player.setVelocityX(0);
 		
 	}
 	
@@ -51,5 +101,7 @@ public class GameWorld {
 	public Player getPlayer() { return player; }
 	
 	public ScrollHandler getScrollHandler() { return scrollHandler; }
+	
+	public GameState getCurrentState() { return currentState; }
 	
 }
