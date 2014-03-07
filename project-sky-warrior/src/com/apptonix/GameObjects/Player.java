@@ -20,18 +20,18 @@ public class Player {
 	
 	// TODO Temporary
 	// Start Cool animation fields
-	private float topPos = 50;
-	private float bottomPos = 100;
-	
+	private float startingPos;
 	private boolean isGoingDown = true;
-	
 	private int dipSpeed = 1;
+	private int dipVariance = 20;
 	// End cool animation fields
 	
 	public Player(float x, float y, int width, int height) {
 		
 		this.width = width;
 		this.height = height;
+		
+		this.startingPos = x;
 		
 		position = new Vector2(x, y);
 		velocity = new Vector2(0, 0);
@@ -50,14 +50,14 @@ public class Player {
 		if (isGoingDown) {
 			position.x += dipSpeed;
 			
-			if (position.x >= bottomPos) {
+			if (position.x >= (startingPos + dipVariance)) {
 				isGoingDown = false;
 			}
 		}
 		else {
 			position.x -= dipSpeed;
 			
-			if (position.x <= topPos) {
+			if (position.x <= (startingPos - dipVariance)) {
 				isGoingDown = true;
 			}
 		}

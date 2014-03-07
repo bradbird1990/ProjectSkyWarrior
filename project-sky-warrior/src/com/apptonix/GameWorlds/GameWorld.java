@@ -24,7 +24,7 @@ public class GameWorld {
 		this.gameWidth = pGameWidth;
 		this.gameHeight = pGameHeight;
 		
-		player = new Player((this.gameWidth / 2) + 100, this.gameHeight / 2, playerWidth, playerHeight);
+		player = new Player(this.gameHeight / 2, (this.gameWidth / 2) - (playerWidth / 2), playerWidth, playerHeight);
 		
 	}
 	
