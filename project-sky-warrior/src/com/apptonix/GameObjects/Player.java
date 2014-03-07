@@ -18,13 +18,13 @@ public class Player {
 	private int playerHealth = 100;
 	private int playerState = 1;
 	
-	// TODO Temporary
-	// Start Cool animation fields
-	private float startingPos;
+	private boolean shouldHover = false;
 	private boolean isGoingDown = true;
-	private int dipSpeed = 1;
-	private int dipVariance = 20;
-	// End cool animation fields
+	private boolean hoverStartingPosSet = false;
+	
+	private int hoverStartingPos = 0;
+	private int hoverVariance = 100;
+	private int hoverSpeed = 20;
 	
 	public Player(float x, float y, int width, int height) {
 		
@@ -47,17 +47,32 @@ public class Player {
 		hitBox.set(position.x, position.y, width, height);
 		
 		// TODO Temporary
+		// Hover the plane if it should
+		if (shouldHover) {
+			playerHover();
+		}
+	// TODO Does not work
+	public void playerHover() {
+		
+		if (hoverStartingPosSet == false) {
+			hoverStartingPos = (int) position.y;
+			hoverStartingPosSet = true;
+		}
+		
+		System.out.println(getY());
+		
 		if (isGoingDown) {
-			position.x += dipSpeed;
+			setVelocityY(hoverSpeed);
 			
-			if (position.x >= (startingPos + dipVariance)) {
+			if (getY() >= hoverStartingPos + hoverVariance) {
 				isGoingDown = false;
 			}
 		}
 		else {
 			position.x -= dipSpeed;
+			setVelocityY(-hoverSpeed);
 			
-			if (position.x <= (startingPos - dipVariance)) {
+			if (getY() <= hoverStartingPos - hoverVariance) {
 				isGoingDown = true;
 			}
 		}
