@@ -35,6 +35,7 @@ public class GameRenderer {
 		background2;
 	
 	private TextureRegion
+		splashLogo,
 		backgroundDesert,
 		planeRed;
 	
@@ -83,6 +84,8 @@ public class GameRenderer {
 		
 		spriteBatcher.draw(planeRed, player.getX(), player.getY(), player.getWidth(), player.getHeight());
 		
+		spriteBatcher.draw(splashLogo, (gameWidth / 2) - (splashLogo.getRegionWidth() / 2), -100, splashLogo.getRegionWidth(), splashLogo.getRegionHeight());
+
 		spriteBatcher.end();
 		
 	}
@@ -106,6 +109,7 @@ public class GameRenderer {
 	 */
 	private void initAssets() {
 		
+		splashLogo = AssetLoader.splashLogo;
 		backgroundDesert = AssetLoader.backgroundDesert;
 		planeRed = AssetLoader.planeRed;
 		

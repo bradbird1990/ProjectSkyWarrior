@@ -28,7 +28,7 @@ public class GameScreen implements Screen {
 		/*
 		 * Setup the game world
 		 */
-		gameWorld = new GameWorld();
+		gameWorld = new GameWorld((int) gameHeight, (int) gameWidth);
 		gameRenderer = new GameRenderer(gameWorld, (int) gameHeight, (int) gameWidth);
 		
 		/*

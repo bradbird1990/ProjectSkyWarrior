@@ -6,17 +6,25 @@ import com.apptonix.GameObjects.ScrollHandler;
 
 public class GameWorld {
 	
+	private int gameWidth;
+	private int gameHeight;
+	
 	private Player player;
+	private int playerWidth = 95;
+	private int playerHeight = 72;
 	
 	private ScrollHandler scrollHandler;
 	
 	private boolean introMusic = false;
 	
-	public GameWorld() {
+	public GameWorld(int pGameHeight, int pGameWidth) {
 		
 		scrollHandler = new ScrollHandler(this);
 		
-		player = new Player(50, 50, 95, 72);
+		this.gameWidth = pGameWidth;
+		this.gameHeight = pGameHeight;
+		
+		player = new Player((this.gameWidth / 2) + 100, this.gameHeight / 2, playerWidth, playerHeight);
 		
 	}
 	

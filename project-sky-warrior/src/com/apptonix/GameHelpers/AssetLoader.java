@@ -9,10 +9,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class AssetLoader {
 	
 	public static Texture
+		splashLogoRaw,
 		backgroundsRaw,
 		planesRaw;
 	
 	public static TextureRegion
+		splashLogo,
 		backgroundDesert,
 		planeRed;
 	
@@ -23,6 +25,15 @@ public class AssetLoader {
 	 * Load in the textures from the assets folder
 	 */
 	public static void load() {
+		
+		/*
+		 * Load the logos
+		 */
+		splashLogoRaw = new Texture(Gdx.files.internal("data/logos/projectskywarrior.png"));
+		splashLogoRaw.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		
+		splashLogo = new TextureRegion(splashLogoRaw, 0, 0, 1024, 512);
+		splashLogo.flip(false, true);
 		
 		/*
 		 * Load the backgrounds
@@ -54,6 +65,7 @@ public class AssetLoader {
 	 */
 	public static void dispose() {
 		
+		splashLogoRaw.dispose();
 		backgroundsRaw.dispose();
 		planesRaw.dispose();
 		
