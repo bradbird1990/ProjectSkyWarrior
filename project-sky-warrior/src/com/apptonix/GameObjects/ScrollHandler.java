@@ -10,7 +10,7 @@ public class ScrollHandler {
 		background,
 		background2;
 	
-	public static final int SCROLL_SPEED = -200;
+	public static final int SCROLL_SPEED = -100;
 	
 	public ScrollHandler(GameWorld pWorld) {
 		
