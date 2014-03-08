@@ -26,6 +26,8 @@ public class GameWorld {
 	
 	private GameState currentState;
 	
+	private boolean isFadingOut = false;
+	
 	public GameWorld(int pGameHeight, int pGameWidth) {
 		
 		scrollHandler = new ScrollHandler(this);
@@ -54,10 +56,10 @@ public class GameWorld {
 			case SPLASH:
 				updateSplash(delta);
 				break;
-			/*case SPLASH_POST:
+			case SPLASH_POST:
 				updateSplashPost(delta);
 				break;
-			case PLAYING_PRE:
+			/*case PLAYING_PRE:
 				updatePlayingPre(delta);
 				break;
 			case PLAYING:
@@ -95,6 +97,16 @@ public class GameWorld {
 		
 	}
 	
+	public void updateSplashPost(float delta) {
+		
+		player.setVelocityX(400);
+		
+		if (player.getX() >= gameWidth) {
+			isFadingOut = true;
+		}
+		
+	}
+	
 	/*
 	 * Getters and setters
 	 */
@@ -103,5 +115,9 @@ public class GameWorld {
 	public ScrollHandler getScrollHandler() { return scrollHandler; }
 	
 	public GameState getCurrentState() { return currentState; }
+	
+	public void setCurrentState(GameState gameState) { currentState = gameState; }
+	
+	public boolean isFadingOut() { return isFadingOut; }
 	
 }

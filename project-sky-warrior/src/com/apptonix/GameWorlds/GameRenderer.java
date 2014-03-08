@@ -1,6 +1,10 @@
 package com.apptonix.GameWorlds;
 
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenManager;
+
 import com.apptonix.GameHelpers.AssetLoader;
+import com.apptonix.GameHelpers.SpriteAccessor;
 import com.apptonix.GameObjects.Background;
 import com.apptonix.GameObjects.Player;
 import com.apptonix.GameObjects.ScrollHandler;
@@ -9,6 +13,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -37,6 +42,7 @@ public class GameRenderer {
 		background2;
 	
 	private TextureRegion
+		blackOverlay,
 		splashLogo,
 		buttonPlay,
 		backgroundDesert,
@@ -44,6 +50,9 @@ public class GameRenderer {
 	
 	private Animation
 		buttonPlayAnimation;
+	
+	private TweenManager
+		tweenManager;
 	
 	private ShapeRenderer
 		backgroundColour;
@@ -60,6 +69,9 @@ public class GameRenderer {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(true, 1280, 720); // TODO This needs changing
 		
+		tweenManager = new TweenManager();
+		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
+		
 		backgroundColour = new ShapeRenderer();
 		backgroundColour.setProjectionMatrix(camera.combined);
 		
@@ -75,6 +87,8 @@ public class GameRenderer {
 		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		
+		tweenManager.update(runTime);
 		
 		backgroundColour.begin(ShapeType.Filled);
 		
@@ -94,6 +108,12 @@ public class GameRenderer {
 		
 		if (world.getCurrentState() == GameState.SPLASH) {
 			spriteBatcher.draw(buttonPlayAnimation.getKeyFrame(runTime), (gameWidth / 2) - (buttonPlay.getRegionWidth() / 2), player.getY() - buttonPlay.getRegionHeight() - 30, buttonPlay.getRegionWidth(), buttonPlay.getRegionHeight());
+		}
+		
+		if (world.isFadingOut()) {
+//			spriteBatcher.draw(blackOverlay, -5, -5, gameWidth + 10, gameHeight + 10);
+			
+			
 		}
 
 		spriteBatcher.end();
@@ -119,6 +139,7 @@ public class GameRenderer {
 	 */
 	private void initAssets() {
 		
+		blackOverlay = AssetLoader.blackOverlay;
 		splashLogo = AssetLoader.splashLogo;
 		buttonPlay = AssetLoader.buttonPlay1;
 		buttonPlayAnimation = AssetLoader.buttonPlayAnimation;

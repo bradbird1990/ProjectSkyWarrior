@@ -2,6 +2,7 @@ package com.apptonix.GameHelpers;
 
 import com.apptonix.GameObjects.Player;
 import com.apptonix.GameWorlds.GameWorld;
+import com.apptonix.GameWorlds.GameWorld.GameState;
 import com.badlogic.gdx.InputProcessor;
 
 public class InputHandler implements InputProcessor {
@@ -43,6 +44,12 @@ public class InputHandler implements InputProcessor {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
+		
+		//
+		if (world.getCurrentState() == GameState.SPLASH) {
+			world.setCurrentState(GameState.SPLASH_POST);
+		}
+		
 		return false;
 	}
 
