@@ -15,6 +15,7 @@ public class AssetLoader {
 		planesRaw;
 	
 	public static TextureRegion
+		blackOverlay,
 		splashLogo,
 		buttonPlay1, buttonPlay2,
 		backgroundDesert,
@@ -32,7 +33,7 @@ public class AssetLoader {
 	public static void load() {
 		
 		/*
-		 * Load the logos
+		 * Load the UI
 		 */
 		uiRaw = new Texture(Gdx.files.internal("data/ui/ui.png"));
 		uiRaw.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
@@ -52,6 +53,11 @@ public class AssetLoader {
 		TextureRegion[] buttonPlayFrames = { buttonPlay1, buttonPlay2 };
 		buttonPlayAnimation = new Animation(0.2f, buttonPlayFrames);
 		buttonPlayAnimation.setPlayMode(Animation.LOOP);
+		
+		/*
+		 * Load misc UI
+		 */
+		blackOverlay = new TextureRegion(uiRaw, 695, 0, 1, 1);
 		
 		/*
 		 * Load the backgrounds
