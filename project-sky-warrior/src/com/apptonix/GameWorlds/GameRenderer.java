@@ -8,6 +8,7 @@ import com.apptonix.GameHelpers.SpriteAccessor;
 import com.apptonix.GameObjects.Background;
 import com.apptonix.GameObjects.Player;
 import com.apptonix.GameObjects.ScrollHandler;
+import com.apptonix.GameObjects.Soldier;
 import com.apptonix.GameWorlds.GameWorld.GameState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
@@ -34,6 +35,9 @@ public class GameRenderer {
 	private Player
 		player;
 	
+	private Soldier
+		soldier;
+	
 	private SpriteBatch
 		spriteBatcher;
 	
@@ -49,10 +53,8 @@ public class GameRenderer {
 		planeRed;
 	
 	private Animation
-		buttonPlayAnimation;
-	
-	private TweenManager
-		tweenManager;
+		buttonPlayAnimation,
+		soldierAnimation;
 	
 	private ShapeRenderer
 		backgroundColour;
@@ -68,9 +70,6 @@ public class GameRenderer {
 		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(true, 1280, 720); // TODO This needs changing
-		
-		tweenManager = new TweenManager();
-		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		
 		backgroundColour = new ShapeRenderer();
 		backgroundColour.setProjectionMatrix(camera.combined);
@@ -88,8 +87,6 @@ public class GameRenderer {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		tweenManager.update(runTime);
-		
 		backgroundColour.begin(ShapeType.Filled);
 		
 		backgroundColour.setColor(100 / 255.0f, 150 / 255.0f, 255 / 255.0f, 1);
@@ -103,17 +100,19 @@ public class GameRenderer {
 		spriteBatcher.draw(backgroundDesert, background2.getX(), background2.getY(), background2.getWidth(), background2.getHeight());
 		
 		spriteBatcher.draw(planeRed, player.getX(), player.getY(), player.getWidth(), player.getHeight());
+		spriteBatcher.draw(soldierAnimation.getKeyFrame(runTime), soldier.getX(), soldier.getY(), soldier.getWidth(), soldier.getHeight());
 		
-		spriteBatcher.draw(splashLogo, (gameWidth / 2) - (splashLogo.getRegionWidth() / 2), 50, splashLogo.getRegionWidth(), splashLogo.getRegionHeight());
+		if (world.getCurrentState() == GameState.SPLASH_PRE || world.getCurrentState() == GameState.SPLASH || world.getCurrentState() == GameState.SPLASH_POST) {
+			spriteBatcher.draw(splashLogo, (gameWidth / 2) - (splashLogo.getRegionWidth() / 2), 50, splashLogo.getRegionWidth(), splashLogo.getRegionHeight());
+		}
 		
 		if (world.getCurrentState() == GameState.SPLASH) {
 			spriteBatcher.draw(buttonPlayAnimation.getKeyFrame(runTime), (gameWidth / 2) - (buttonPlay.getRegionWidth() / 2), player.getY() - buttonPlay.getRegionHeight() - 30, buttonPlay.getRegionWidth(), buttonPlay.getRegionHeight());
 		}
 		
+		// TODO Temporary - Need to fix
 		if (world.isFadingOut()) {
 //			spriteBatcher.draw(blackOverlay, -5, -5, gameWidth + 10, gameHeight + 10);
-			
-			
 		}
 
 		spriteBatcher.end();

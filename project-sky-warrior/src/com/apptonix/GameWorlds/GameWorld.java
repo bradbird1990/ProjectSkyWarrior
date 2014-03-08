@@ -2,6 +2,7 @@ package com.apptonix.GameWorlds;
 
 import com.apptonix.GameHelpers.AssetLoader;
 import com.apptonix.GameObjects.Player;
+import com.apptonix.GameObjects.Soldier;
 import com.apptonix.GameObjects.ScrollHandler;
 
 public class GameWorld {
@@ -10,8 +11,18 @@ public class GameWorld {
 	private int gameHeight;
 	
 	private Player player;
+	
+	private int playerStartX = -100;
+	private int playerStartY = 400;
 	private int playerWidth = 95;
 	private int playerHeight = 72;
+	
+	private Soldier soldier;
+	
+	private int soldierStartX = 200;
+	private int soldierStartY = 600;
+	private int soldierWidth = 38;
+	private int soldierHeight = 42;
 	
 	private ScrollHandler scrollHandler;
 	
@@ -35,7 +46,8 @@ public class GameWorld {
 		this.gameWidth = pGameWidth;
 		this.gameHeight = pGameHeight;
 		
-		player = new Player(-100, -100, playerWidth, playerHeight); // Put player out of sight for now
+		player = new Player(playerStartX, playerStartY, playerWidth, playerHeight); // Put player out of sight for now
+		soldier = new Soldier(soldierStartX, soldierStartY, soldierWidth, soldierHeight);
 		
 		currentState = GameState.SPLASH_PRE;
 		
@@ -59,10 +71,10 @@ public class GameWorld {
 			case SPLASH_POST:
 				updateSplashPost(delta);
 				break;
-			/*case PLAYING_PRE:
+			case PLAYING_PRE:
 				updatePlayingPre(delta);
 				break;
-			case PLAYING:
+			/*case PLAYING:
 				updatePlaying(delta);
 				break;
 			case GAMEOVER:
@@ -82,8 +94,8 @@ public class GameWorld {
 			AssetLoader.introMusic.setLooping(true);
 		}
 		
-		player.setY(400);
 		player.setVelocityX(200);
+		player.setShouldHover(true);
 		
 		if (player.getX() >= (gameWidth / 2) - (player.getWidth() / 2)) {
 			currentState = GameState.SPLASH;
@@ -101,8 +113,24 @@ public class GameWorld {
 		
 		player.setVelocityX(400);
 		
-		if (player.getX() >= gameWidth) {
+		if (player.getX() >= gameWidth + 100) {
 			isFadingOut = true;
+			currentState = GameState.PLAYING_PRE;
+			player.setX(-100);
+			player.setY(100);
+			player.setShouldHover(false);
+		}
+		
+	}
+	
+	public void updatePlayingPre(float delta) {
+		
+		isFadingOut = false;
+		
+		player.setVelocityX(200);
+		
+		if (player.getX() >= 100) {
+			player.setVelocityX(0);
 		}
 		
 	}

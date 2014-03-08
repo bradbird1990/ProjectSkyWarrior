@@ -12,17 +12,19 @@ public class AssetLoader {
 	public static Texture
 		uiRaw,
 		backgroundsRaw,
-		planesRaw;
+		spritesheetRaw;
 	
 	public static TextureRegion
 		blackOverlay,
 		splashLogo,
 		buttonPlay1, buttonPlay2,
+		soldierRunning1, soldierRunning2, soldierRunning3,
 		backgroundDesert,
 		planeRed;
 	
 	public static Animation
-		buttonPlayAnimation;
+		buttonPlayAnimation,
+		soldierRunningAnimation;
 	
 	public static Music
 		introMusic;
@@ -71,11 +73,24 @@ public class AssetLoader {
 		/*
 		 * Load the game object sprites
 		 */
-		planesRaw = new Texture(Gdx.files.internal("data/spritesheets/planes.png"));
-		planesRaw.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		spritesheetRaw = new Texture(Gdx.files.internal("data/spritesheets/spritesheet.png"));
+		spritesheetRaw.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
-		planeRed = new TextureRegion(planesRaw, 0, 0, 95, 72);
+		planeRed = new TextureRegion(spritesheetRaw, 0, 0, 95, 72);
 		planeRed.flip(false, true);
+		
+		soldierRunning1 = new TextureRegion(spritesheetRaw, 0, 72, 25, 42);
+		soldierRunning1.flip(false, true);
+		
+		soldierRunning2 = new TextureRegion(spritesheetRaw, 25, 72, 38, 42);
+		soldierRunning2.flip(false, true);
+		
+		soldierRunning3 = new TextureRegion(spritesheetRaw, 63, 72, 26, 42);
+		soldierRunning3.flip(false, true);
+		
+		TextureRegion[] soldierRunningFrames = { soldierRunning1, soldierRunning2, soldierRunning3 };
+		soldierRunningAnimation = new Animation(0.2f, soldierRunningFrames);
+		soldierRunningAnimation.setPlayMode(Animation.LOOP_PINGPONG);
 		
 		/*
 		 * Load the music
@@ -91,7 +106,7 @@ public class AssetLoader {
 		
 		uiRaw.dispose();
 		backgroundsRaw.dispose();
-		planesRaw.dispose();
+		spritesheetRaw.dispose();
 		
 		introMusic.dispose();
 		

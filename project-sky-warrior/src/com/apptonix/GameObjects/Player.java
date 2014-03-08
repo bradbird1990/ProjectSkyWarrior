@@ -5,8 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player {
 
-	private Vector2 position;
-	private Vector2 velocity;
+	protected Vector2 position;
+	protected Vector2 velocity;
 	
 	private float rotation;
 	private int width;
@@ -22,8 +22,8 @@ public class Player {
 	private boolean hoverStartingPosSet = false;
 	
 	private int hoverStartingPos = 0;
-	private int hoverVariance = 100;
-	private int hoverSpeed = 20;
+	private int hoverVariance = 20;
+	private int hoverSpeed = 50;
 	
 	public Player(float x, float y, int width, int height) {
 		
@@ -59,8 +59,6 @@ public class Player {
 			hoverStartingPos = (int) position.y;
 			hoverStartingPosSet = true;
 		}
-		
-		System.out.println(getY());
 		
 		if (isGoingDown) {
 			setVelocityY(hoverSpeed);
@@ -102,7 +100,7 @@ public class Player {
 	
 	public float getHeight() { return height; }
 	
-	public void setShouldHover(boolean b) { this.shouldHover = b; }
+	public void setShouldHover(boolean b) { this.shouldHover = b; if (!b) { this.velocity.y = 0; } }
 	
 	public boolean getShouldHover() { return shouldHover; }
 	
